@@ -65,7 +65,7 @@ def JSON_Processor(Json:dict)->list:
             for i in range(len(items) - 1):
                 first_entry = items[i]
                 second_entry = items[i + 1]
-                if second_entry[1][0] - first_entry[1][2]<0:
+                if second_entry[1][0] - first_entry[1][2]<3:
                     items[i]='remove'
                     items[i + 1]=[first_entry[0]+' '+second_entry[0], [first_entry[1][0],first_entry[1][1],second_entry[1][2],second_entry[1][3]]]         
 
