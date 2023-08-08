@@ -10,8 +10,6 @@ def is_close(value1, value2, threshold=3):
 def make_csv(data:list, headers_list:list):
 
     # Filtaring header from list of words in OCR data list
-    headers_list=['Description', 'Type', 'Units', 'Per Unit', 'FxRate', 'Total']
-    list_len=len(headers_list)
     headers=list()
     for header in headers_list:
         best_similarity=0
@@ -24,7 +22,12 @@ def make_csv(data:list, headers_list:list):
         # print(header,best_match_pair,best_similarity)
         headers.append(best_match_pair)
     headers = sorted(headers, key=lambda entry: entry[1][0])
-    
+
+    header_height= min([height[1][1] for height in headers])
+
+    data = [entry for entry in data if entry not in headers ]
+    data = [entry for entry in data if entry[1][1] > header_height]
+
     # Grouping data dased on there rows
     grouped_data = []
     for entry in [word_data for word_data in data if word_data[0] not in [word[0] for word in headers]]:
@@ -44,11 +47,11 @@ def make_csv(data:list, headers_list:list):
     for group in grouped_data:
         dic=dict()
         for entry in group:
-            min=1000000000000
+            min_distance=1000000000000
             tag=None
             for header in headers:
-                if abs(abs((entry[1][0]+entry[1][2])/2) - abs((header[1][0]+ header[1][2])/2))<min:
-                    min=abs(abs((entry[1][0]+entry[1][2])/2) - abs((header[1][0]+ header[1][2])/2))
+                if abs(abs((entry[1][0]+entry[1][2])/2) - abs((header[1][0]+ header[1][2])/2))<min_distance:
+                    min_distance=abs(abs((entry[1][0]+entry[1][2])/2) - abs((header[1][0]+ header[1][2])/2))
                     tag=header[0]
             dic[tag]=entry[0]
         row_data.append(dic.copy())
