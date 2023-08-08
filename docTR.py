@@ -17,7 +17,7 @@ from doctr.models import ocr_predictor
 
 
 model = ocr_predictor(det_arch='db_resnet50', reco_arch='crnn_vgg16_bn', pretrained=True)
-
+                     
 def OCR(Image_path:str)->dict:
     """Read an image from a path to the OCR
 

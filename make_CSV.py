@@ -1,5 +1,5 @@
 import csv
-from fuzzywuzzy import fuzz
+import Levenshtein
 
 
 
@@ -10,21 +10,19 @@ def is_close(value1, value2, threshold=3):
 def make_csv(data:list, headers_list:list):
 
     # Filtaring header from list of words in OCR data list
+    headers_list=['Description', 'Type', 'Units', 'Per Unit', 'FxRate', 'Total']
+    list_len=len(headers_list)
     headers=list()
-    for word in data:
-        best_similarity = 0
-        best_match = None
-
-        for header_word in headers_list:
-            similarity = fuzz.partial_ratio(word[0], header_word)
-            if similarity > best_similarity:
-                best_similarity = similarity
-                best_match = header_word
-        # Check if the best match has sufficient similarity threshold
-        if best_similarity >= 90 and len(headers)<=len(headers_list):  # You can adjust the threshold as needed
-            headers.append(word)
-            headers_list.remove(best_match)
-            
+    for header in headers_list:
+        best_similarity=0
+        best_match_pair=None
+        for words in data:
+            similarity = 1 - Levenshtein.distance(header,words[0]) / max(len(words[0]), len(header))
+            if best_similarity <  similarity:
+                best_similarity =  similarity
+                best_match_pair = words
+        # print(header,best_match_pair,best_similarity)
+        headers.append(best_match_pair)
     headers = sorted(headers, key=lambda entry: entry[1][0])
     
     # Grouping data dased on there rows
