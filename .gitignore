@@ -12,4 +12,4 @@ a.out
 *.a78
 __pycache__
 .DS_store
-
+*ipynb
