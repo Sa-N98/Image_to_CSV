@@ -1,3 +1,13 @@
+""" 
+Function : Converting docTR output to csv
+Author : Saranya
+For : Itech India Pvt Ltd
+
+Usage : Converts the docTR output in to a csv file.
+
+"""
+
+
 import csv
 import Levenshtein
 
@@ -8,6 +18,15 @@ def is_close(value1, value2, threshold=3):
 
 
 def make_csv(data:list, headers_list:list):
+    """Read an image from a path to the OCR
+
+    Args:
+        data (list): List of words and there coordinates in a nested list.
+        headers_list (list): List of header words.
+
+    Returns:
+        String if csv is successfuly created.
+    """
 
     # Filtaring header from list of words in OCR data list
     headers=list()
@@ -19,7 +38,7 @@ def make_csv(data:list, headers_list:list):
             if best_similarity <  similarity:
                 best_similarity =  similarity
                 best_match_pair = words
-        # print(header,best_match_pair,best_similarity)
+    
         headers.append(best_match_pair)
     headers = sorted(headers, key=lambda entry: entry[1][0])
 
