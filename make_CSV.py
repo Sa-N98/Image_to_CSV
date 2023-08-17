@@ -72,7 +72,10 @@ def make_csv(data:list, headers_list:list):
                 if abs(abs((entry[1][0]+entry[1][2])/2) - abs((header[1][0]+ header[1][2])/2))<min_distance:
                     min_distance=abs(abs((entry[1][0]+entry[1][2])/2) - abs((header[1][0]+ header[1][2])/2))
                     tag=header[0]
-            dic[tag]=entry[0]
+            if tag in dic.keys():
+                dic[tag]=dic[tag] +" "+ entry[0]
+            else:
+                dic[tag]= entry[0]
         row_data.append(dic.copy())
     
     

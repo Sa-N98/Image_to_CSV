@@ -67,7 +67,7 @@ def OCR(Image_path:str)->dict:
             for i in range(len(items) - 1):
                 first_entry = items[i]
                 second_entry = items[i + 1]
-                if second_entry[1][0] - first_entry[1][2]<3:
+                if second_entry[1][0] - first_entry[1][2]<10:
                     items[i]='remove'
                     items[i + 1]=[first_entry[0]+' '+second_entry[0], [first_entry[1][0],first_entry[1][1],second_entry[1][2],second_entry[1][3]]]         
 
@@ -81,8 +81,9 @@ def OCR(Image_path:str)->dict:
 
     for items in grouped_data:
         for item in  items:
-            lables.append(item[0])
-            bbox_coordinates.append(item[1])
+            if (item[1][0] < item[1][2]) and (item[1][1] < item[1][3]):
+                lables.append(item[0])
+                bbox_coordinates.append(item[1])
 
     return lables,bbox_coordinates
 
@@ -147,9 +148,12 @@ def visualizer(Image_path:str,bbox_coordinates:list,lables:list):
     Returns:
         None
     """
+    
     Image.open(Image_path).convert("RGB").save(Image_path)
     img = read_image(Image_path)
+   
     bbox = torch.tensor(bbox_coordinates, dtype=torch.int)
+    print(bbox)
     image_out = torchvision.transforms.ToPILImage()(draw_bounding_boxes(img, bbox, width=2, colors=(255,0,0),fill =False,labels= lables,font_size=1500 ))
     image_out.show()
 
