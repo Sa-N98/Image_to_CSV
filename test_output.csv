@@ -1,9 +1,0 @@
-Description,Type,Units,PerUnit,FxRate,Total
-Ocean Freight,Per Container,0.198,"USD3,359.75",,USD 665.23
-Bunker Surcharge,Per Container,0.198,USD540.25,,USD 106.97
-Locall Pickup & Delivery,PerCBM,10.56,"CZK1,550.00",0.05,USD 818.40
-Stuffing Charges,Per CBM,10.56,CZK596.00,0.05,USD. 314.69
-Origin Terminal Handling Fee,Per Container,0.198,EUR 155.77,1.09,USD33.62
-Export Declaration,Flatl Rate,1.,CZK405.00,0.05,SD 20.25
-SOLASHandling Fee,Per Container,0.198,EUR25.00,1.09,USD5.40
-Destination Terminal Handling,Per Container,0.198,USD65.00,,USD12.87
