@@ -26,7 +26,7 @@ def image_preprocessing(image_path:str)->None:
         None
     
     """
-    im = Image.open(image)
+    im = Image.open(image_path)
     im.save("test-600.png", dpi=(300,300))
     image = cv2.imread("test-600.png")
     _, binary_image = cv2.threshold(image, 130, 255, cv2.THRESH_BINARY)
@@ -160,4 +160,4 @@ def runner(image_path:str, headers:list)->None:
 
 
 
-runner('/Users/901002/work/Invoice/invoice v2/6b074f8d3f9f94268e1f21987b3bcf7fc7dfaa5a76b8c8546736141b.jpg')
+runner('/Users/901002/work/Invoice/Samples/Screenshot 2023-07-28 at 3.13.08 PM.png', ["Description",'Type','Units', 'Per Unit', 'FxRate', 'Total'])
