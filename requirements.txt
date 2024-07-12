@@ -4,5 +4,3 @@ Pillow
 pandas
 easyocr
 
-ewvm
-hi
